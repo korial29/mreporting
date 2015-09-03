@@ -130,7 +130,6 @@ class PluginMreportingNotification extends CommonDBTM {
 
       $mail = new PluginMreportingNotificationMail();
       $mail->sendNotification(array_merge($mailing_options, $additional_options));
-      $mail->ClearAddresses();
    }
 
    /**
@@ -145,7 +144,7 @@ class PluginMreportingNotification extends CommonDBTM {
     */
    static function cronSendNotifications($task) {
       $task->log(__("Notification(s) sent !", 'mreporting'));
-      NotificationEvent::raiseEvent('sendReporting', new self(), $task->fields);
+      PluginMreportingNotificationEvent::raiseEvent('sendReporting', new self(), $task->fields);
       return 1;
    }
 }
