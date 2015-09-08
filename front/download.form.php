@@ -35,20 +35,25 @@ include ("../../../inc/includes.php");
 header("Content-Type: text/html; charset=UTF-8");
 Html::header_nocache();
 
-if($_REQUEST['switchto'] == 'odt' || $_REQUEST['switchto'] == 'odtall') {
-   require_once('../lib/odtphp/odf.php');
+if (isset($_GET['id'])){
+   $notificationTarget = new PluginMreportingNotificationTargetNotification();
+   $file = $notificationTarget->getFileDir()."/".$notificationTarget->getFileName($_GET['id']);
+   
+   if (file_exists($file)) {
+       header('Content-Description: File Transfer');
+       header('Content-Type: application/octet-stream');
+       header('Content-Disposition: attachment; filename='.basename($file));
+       header('Content-Transfer-Encoding: binary');
+       header('Expires: 0');
+       header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+       header('Pragma: public');
+       header('Content-Length: ' . filesize($file));
+       ob_clean();
+       flush();
+       readfile($file);
+       exit;
+   }
 }
 
-if (PluginMreportingPreference::atLeastOneTemplateExists()) {
-      $template = PluginMreportingPreference::checkPreferenceTemplateValue(Session::getLoginUserID());
-   if ($template) {
-      $common = new PluginMreportingCommon();
-      $common->export($_REQUEST);
-   } else {
-      Session::addMessageAfterRedirect(__("Please, select a model in your preferences", 'mreporting'), false, ERROR);
-      Html::redirect("../../../front/preference.php");
-   }
-} else {
-   Session::addMessageAfterRedirect(__("No model available", 'mreporting'), false, ERROR);
-   Html::back();
-}
+exit;
+

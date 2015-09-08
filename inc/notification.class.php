@@ -15,9 +15,7 @@ class PluginMreportingNotification extends CommonDBTM {
     * @return string name of the plugin
     */
    static function getTypeName($nb = 0) {
-      global $LANG;
-
-      return $LANG['plugin_mreporting']['name'];
+      return __("More Reporting", 'mreporting');
    }
 
    /**
@@ -26,15 +24,15 @@ class PluginMreportingNotification extends CommonDBTM {
     * @return array 'success' => true on success
     */
    static function install() {
-      global $LANG, $DB;
+      global $DB;
 
       // Création du template de la notification
       $template = new NotificationTemplate();
       $found_template = $template->find("itemtype = 'PluginMreportingNotification'");
       if (count($found_template) == 0) {
          $template_id = $template->add(array(
-            'name'                     => $LANG['plugin_mreporting']['notification_name'],
-            'comment'                  => $LANG['plugin_mreporting']['notification_comment'],
+            'name'                     => __("Notification for \"More Reporting\"", 'mreporting'),
+            'comment'                  => "",
             'itemtype'                 => 'PluginMreportingNotification',
          ));
 
@@ -43,28 +41,30 @@ class PluginMreportingNotification extends CommonDBTM {
          $translation->add(array(
          	'notificationtemplates_id' => $template_id,
             'language'                 => '',
-         	'subject'                  => $LANG['plugin_mreporting']['notification_subject'],
-         	'content_text'             => $LANG['plugin_mreporting']['notification_text'],
-         	'content_html'             => $LANG['plugin_mreporting']['notification_html'],
+         	'subject'                  => __("GLPI statistics reports", 'mreporting'),
+         	'content_text'             => __("Hello,\n\nGLPI reports are available.\nYou will find attached in this email.\n\n", 'mreporting'),
+         	'content_html'             => __("\n<p>Hello,</p>\n\n<p>GLPI reports are available.<br />\nYou will find attached in this email.</p>\n\n", 'mreporting'),
          ));
 
          // Création de la notification
-         $notification = new Notification();
-         $notification_id = $notification->add(array(
-            'name'                     => $LANG['plugin_mreporting']['notification_name'],
-            'comment'                  => $LANG['plugin_mreporting']['notification_comment'],
+         $notification    = new Notification();
+         if ($notification_id = $notification->add(array(
+            'name'                     => __("Notification for \"More Reporting\"", 'mreporting'),
+            'comment'                  => "",
             'entities_id'              => 0,
             'is_recursive'             => 1,
             'is_active'                => 1,
             'itemtype'                 => 'PluginMreportingNotification',
             'notificationtemplates_id' => $template_id,
             'event'                    => 'sendReporting',
-            'mode'                     => 'mail',
-         ));
+            'mode'                     => 'mail'))) {
+
+            $DB->query('INSERT INTO glpi_notificationtargets (items_id, type, notifications_id)
+                     VALUES (1, 1, '.$notification_id.');');
+         }
       }
 
-      $DB->query('INSERT INTO glpi_notificationtargets (items_id, type, notifications_id)
-               VALUES (1, 1, ' . $notification_id . ');');
+
 
        return array('success' => true);
    }
@@ -116,11 +116,9 @@ class PluginMreportingNotification extends CommonDBTM {
     * @return array of strings
     */
    static function cronInfo($name) {
-      global $LANG;
-
       switch ($name) {
       	case 'SendNotifications' :
-      	   return array('description' => $LANG['plugin_mreporting']['notification_name']);
+      	   return array('description' => __("Notification for \"More Reporting\"", 'mreporting'));
       }
       return array();
    }
@@ -132,7 +130,6 @@ class PluginMreportingNotification extends CommonDBTM {
 
       $mail = new PluginMreportingNotificationMail();
       $mail->sendNotification(array_merge($mailing_options, $additional_options));
-      $mail->ClearAddresses();
    }
 
    /**
@@ -146,11 +143,8 @@ class PluginMreportingNotification extends CommonDBTM {
     *     0 : nothing to do
     */
    static function cronSendNotifications($task) {
-      global $LANG;
-
-      $task->log($LANG['plugin_mreporting']['notification_log']);
+      $task->log(__("Notification(s) sent !", 'mreporting'));
       PluginMreportingNotificationEvent::raiseEvent('sendReporting', new self(), $task->fields);
       return 1;
    }
 }
-

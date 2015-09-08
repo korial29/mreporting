@@ -5,15 +5,15 @@ Html::header_nocache();
 if (isset($_REQUEST['action'])) {
    switch ($_REQUEST['action']) {
       case 'removeReportFromDashboard':
-         PluginMreportingDashboard::removeReportFromDashboard($_POST['id']);
+         PluginMreportingDashboard::removeReportFromDashboard($_REQUEST['id']);
          break;
 
       case 'updateWidget':
-         PluginMreportingDashboard::updateWidget($_POST['id']);         
+         PluginMreportingDashboard::updateWidget($_REQUEST['id']);         
          break;
 
       case 'getConfig':
-         PluginMreportingDashboard::getConfig();            
+         PluginMreportingDashboard::getConfig();
          break;
 
       case 'centralDashboard' :
@@ -22,7 +22,7 @@ if (isset($_REQUEST['action'])) {
          $dashboard = new PluginMreportingDashboard();
          $dashboard->showDashboard(false);
          echo "</body>";
-         echo "</html>";         
+         echo "</html>";
          break;
 
       default:

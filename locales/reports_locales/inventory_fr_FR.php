@@ -1,4 +1,4 @@
-<?php 
+<?php
 global $LANG;
 
 $LANG['plugin_mreporting']['Inventory']['title'] = "Reporting inventaire";
@@ -50,10 +50,6 @@ $LANG['plugin_mreporting']['Inventory']['reportHbarMac']['category'] = "OS";
 $LANG['plugin_mreporting']['Inventory']['reportHbarMacFamily']['title'] = "Répartition des versions de Mac OS X dans le parc";
 $LANG['plugin_mreporting']['Inventory']['reportHbarMacFamily']['desc'] = "Barres";
 $LANG['plugin_mreporting']['Inventory']['reportHbarMacFamily']['category'] = "OS";
-
-$LANG['plugin_mreporting']['Inventory']['reportHbarMac']['title'] = "Répartition des versions de Mac OS X dans le parc";
-$LANG['plugin_mreporting']['Inventory']['reportHbarMac']['desc'] = "Barres";
-$LANG['plugin_mreporting']['Inventory']['reportHbarMac']['category'] = "OS";
 
 $LANG['plugin_mreporting']['Inventory']['reportHbarComputersByAge']['title'] = "Ordinateurs par &acirc;ge";
 $LANG['plugin_mreporting']['Inventory']['reportHbarComputersByAge']['desc'] = "Barres";

@@ -75,18 +75,18 @@ class PluginMreportingBaseclass {
 
       // init default value for status selector
       if (!isset($_SESSION['mreporting_values']['status_1'])) {
-         $_SESSION['mreporting_values']['status_1'] 
-            = $_SESSION['mreporting_values']['status_2'] 
-            = $_SESSION['mreporting_values']['status_3'] 
+         $_SESSION['mreporting_values']['status_1']
+            = $_SESSION['mreporting_values']['status_2']
+            = $_SESSION['mreporting_values']['status_3']
             = $_SESSION['mreporting_values']['status_4'] = 1;
-         $_SESSION['mreporting_values']['status_5'] 
+         $_SESSION['mreporting_values']['status_5']
             = $_SESSION['mreporting_values']['status_6'] = 0;
       }
 
       if (!isset($_SESSION['mreporting_values']['period']))  {
          $_SESSION['mreporting_values']['period'] = 'month';
       }
-      if (isset($_SESSION['mreporting_values']['period']) 
+      if (isset($_SESSION['mreporting_values']['period'])
           && !empty($_SESSION['mreporting_values']['period'])) {
          switch($_SESSION['mreporting_values']['period']) {
             case 'day':
@@ -98,13 +98,13 @@ class PluginMreportingBaseclass {
                $this->sql_list_date = "DISTINCT DATE_FORMAT(`date` , '{$this->period_datetime}') as period_l";
                break;
             case 'week':
-                $this->period_sort = '%y%u';
-                $this->period_sort_php = '%y%U';
-                $this->period_datetime = "%Y-%m-%d 23:59:59";
-                $this->period_label = 'S%u %Y';
-                $this->period_interval = 'WEEK';
-                $this->sql_list_date = "DISTINCT DATE_FORMAT(`date` - INTERVAL (WEEKDAY(`date`)) DAY, '{$this->period_datetime}') as period_l";
-                break;
+               $this->period_sort = '%x%v';
+               $this->period_sort_php = '%Y%V';
+               $this->period_datetime = "%Y-%m-%d 23:59:59";
+               $this->period_label = 'S%v %x';
+               $this->period_interval = 'WEEK';
+               $this->sql_list_date = "DISTINCT DATE_FORMAT(`date` - INTERVAL (WEEKDAY(`date`)) DAY, '{$this->period_datetime}') as period_l";
+               break;
             case 'month':
                $this->period_sort = '%y%m';
                $this->period_sort_php = $this->period_sort = '%y%m';
@@ -131,16 +131,15 @@ class PluginMreportingBaseclass {
          $this->period_label = '%b %Y';
       }
 
-      $this->sql_date_create = PluginMreportingCommon::getSQLDate("glpi_tickets.date", 
-                                                                  $config['delay'], 
+      $this->sql_date_create = PluginMreportingCommon::getSQLDate("glpi_tickets.date",
+                                                                  $config['delay'],
                                                                   $config['randname']);
-      $this->sql_date_solve =  PluginMreportingCommon::getSQLDate("glpi_tickets.solvedate", 
-                                                                  $config['delay'], 
+      $this->sql_date_solve =  PluginMreportingCommon::getSQLDate("glpi_tickets.solvedate",
+                                                                  $config['delay'],
                                                                   $config['randname']);
-      $this->sql_date_closed = PluginMreportingCommon::getSQLDate("glpi_tickets.closedate", 
-                                                                  $config['delay'], 
-                                                                  $config['randname']);  
+      $this->sql_date_closed = PluginMreportingCommon::getSQLDate("glpi_tickets.closedate",
+                                                                  $config['delay'],
+                                                                  $config['randname']);
 
    }
 }
-
