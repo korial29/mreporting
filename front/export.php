@@ -52,4 +52,3 @@ if (PluginMreportingPreference::atLeastOneTemplateExists()) {
    Session::addMessageAfterRedirect(__("No model available", 'mreporting'), false, ERROR);
    Html::back();
 }
-

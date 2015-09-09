@@ -35,9 +35,3 @@ if (isset($_POST['saveConfig'])) {
 
     Html::footer();
 }
-
-
-
-
-
-

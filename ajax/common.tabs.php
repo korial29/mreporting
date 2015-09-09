@@ -40,4 +40,3 @@ switch ($_REQUEST['classname']) {
 }
 
 Html::ajaxFooter();
-

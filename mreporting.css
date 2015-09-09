@@ -1,14 +1,13 @@
 #fig {
    border:1px solid #E0E0E0;
-   border-radius:8px;
    position:relative;
    margin:10px auto;
 }
 .graph {
-   margin:2px
+   margin:2px;
 }
 .graph_title {
-   background:url("../../pics/fond_th.png") repeat-x;
+   background-color: #EEE;
    font-size:1.1em;
    padding:7px 0 7px 0;
    text-transform:uppercase;
@@ -66,11 +65,11 @@
    width: 200px !important;
 }
 
-.chzn-container .chzn-drop li:nth-child(even) {background: #EEE}
+.chzn-container .chzn-drop li:nth-child(even) {background: #EEE;}
 
 .mreportingwidget-panel {
    text-align:center;
-   margin: auto; 
+   margin: auto;
    width: auto;
    height: auto;
    min-height: 500px;
@@ -80,7 +79,7 @@
 .mreportingwidget {
    height: 441px;
    width:461px;
-   border-color: #e1d39e;
+   border-color: #DDD;
    border-style: solid;
    border-width: 1px;
    display:inline-block;
@@ -89,7 +88,7 @@
 }
 
 .mreportingwidget-header {
-   background-color: #e1d39e;
+   background-color: #EEE;
    padding: 10px 0;
 }
 
@@ -141,8 +140,10 @@ select[name=graphmenu] option {
 }
 
 .m_dashboard_controls {
-   float: right;   
+   position: absolute;
+   right: 20px;   
    color: #999; 
+   z-index: 100;
 }
 
 .add_report {
@@ -186,13 +187,14 @@ select[name=graphmenu] option {
 }
 
 .add_report:hover span:before {
-   color: white; 
+   color: white;
 }
 
 .empty_dashboard {
    position: absolute;
    right: 40px;   
    background: url(pics/howto_arrow.png) no-repeat right top;
+   z-index: 50;
 }
 
 .empty_dashboard_text {
@@ -204,5 +206,4 @@ select[name=graphmenu] option {
    font-size: 1.4em;
    text-transform: uppercase;
    font-weight: bold;
-
 }

@@ -840,4 +840,3 @@ class PluginMreportingHelpdesk Extends PluginMreportingBaseclass {
       return $config->fields;
    }
 }
-

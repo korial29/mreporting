@@ -44,7 +44,7 @@ class PluginMreportingHelpdeskplus Extends PluginMreportingBaseclass {
       $search_solved    = (!isset($_SESSION['mreporting_values']['show_solved']) || ($_SESSION['mreporting_values']['show_solved'] == '1')) ? true : false;
       $search_backlogs  = (!isset($_SESSION['mreporting_values']['show_backlog']) || ($_SESSION['mreporting_values']['show_backlog'] == '1')) ? true : false;
       $search_closed    = (isset($_SESSION['mreporting_values']['show_closed']) && ($_SESSION['mreporting_values']['show_closed'] == '1')) ? true : false;
-      $sql_type         = isset($_SESSION['mreporting_values']['type']) && $_SESSION['mreporting_values']['type'] > 0 ? " AND glpi_tickets.type = ".$_SESSION['mreporting_values']['type'] : " AND glpi_tickets.type = ".Ticket::INCIDENT_TYPE;
+      $sql_type         = isset($_SESSION['mreporting_values']['type']) && $_SESSION['mreporting_values']['type'] > 0 ? " AND glpi_tickets.type = ".$_SESSION['mreporting_values']['type'] : " AND (glpi_tickets.type = ".Ticket::INCIDENT_TYPE." OR glpi_tickets.type = ".Ticket::DEMAND_TYPE.")";
       $sql_itilcat      = isset($_SESSION['mreporting_values']['itilcategories_id']) && $_SESSION['mreporting_values']['itilcategories_id'] > 0 ? " AND glpi_tickets.itilcategories_id = ".$_SESSION['mreporting_values']['itilcategories_id'] : "";
 
       if($search_new) {

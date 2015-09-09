@@ -45,7 +45,7 @@ if(isset($_SESSION['glpi_use_mode']) && $_SESSION['glpi_use_mode'] == Session::D
 
 // Init the hooks of the plugins -Needed
 function plugin_init_mreporting() {
-   global $PLUGIN_HOOKS,$CFG_GLPI;
+   global $PLUGIN_HOOKS,$CFG_GLPI, $LANG;
 
    $plugin = new Plugin();
 
@@ -85,17 +85,17 @@ function plugin_init_mreporting() {
                }
             }
          }
-         
+
          $PLUGIN_HOOKS['pre_item_purge']['mreporting']
             = array('Profile'                => array('PluginMreportingProfile', 'purgeProfiles'),
-                    'PluginMreportingConfig' => array('PluginMreportingProfile', 
+                    'PluginMreportingConfig' => array('PluginMreportingProfile',
                                                       'purgeProfilesByReports'));
          $PLUGIN_HOOKS['item_add']['mreporting']
             = array('Profile'                => array('PluginMreportingProfile', 'addProfiles'),
                     'PluginMreportingConfig' => array('PluginMreportingProfile', 'addReport'));
 
       }
-      
+
 
       // Add specific files to add to the header : javascript
       $PLUGIN_HOOKS['add_javascript']['mreporting'] = array();
@@ -117,7 +117,7 @@ function plugin_init_mreporting() {
       $PLUGIN_HOOKS['add_css']['mreporting']   = array ();
       $PLUGIN_HOOKS['add_css']['mreporting'][] = "mreporting.css";
       $PLUGIN_HOOKS['add_css']['mreporting'][] = "lib/font-awesome-4.2.0/css/font-awesome.min.css";
-      
+
       //Load additionnal language files in needed
       includeAdditionalLanguageFiles();
 
@@ -131,7 +131,7 @@ function plugin_init_mreporting() {
 // Get the name and the version of the plugin - Needed
 function plugin_version_mreporting() {
    return array('name'           => __("More Reporting", 'mreporting'),
-                'version'        => "0.85+1.0",
+                'version'        => "0.90+1.0",
                 'author'         => "<a href='http://www.teclib.com'>Teclib'</a>
                                        & <a href='http://www.infotel.com'>Infotel</a>",
                 'homepage'       => "https://forge.indepnet.net/projects/mreporting",
@@ -151,8 +151,8 @@ function includeAdditionalLanguageFiles() {
 // Optional : check prerequisites before install : may print errors or add to message after redirect
 function plugin_mreporting_check_prerequisites() {
 
-   if (version_compare(GLPI_VERSION,'0.85','lt') || version_compare(GLPI_VERSION,'0.86','ge')) {
-      echo "This plugin requires GLPI >= 0.85 and GLPI < 0.86";
+   if (version_compare(GLPI_VERSION,'0.85','lt')) {
+      echo "This plugin requires GLPI >= 0.85";
    } else {
       return true;
    }
@@ -185,4 +185,3 @@ function plugin_mreporting_haveRight($module,$right) {
       return true;
    else return false;
 }
-

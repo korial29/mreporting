@@ -353,4 +353,3 @@ function plugin_mreporting_searchOptionsValues($options = array()) {
    }
    return false;
 }
-
